@@ -61,30 +61,31 @@ void Delete(int n) // Delete note at the n-th position
     free(temp);
 }
 
+void Reverse()
+{
+    struct Node *prevNode = NULL;
+    struct Node *currentNode = head;
+    struct Node *nextNode;
+    while (currentNode != NULL)
+    {
+        nextNode = currentNode->next;
+        currentNode->next = prevNode;
+        prevNode = currentNode;
+        currentNode = nextNode;
+    };
+    head = prevNode;
+}
+
 int main()
 {
-    head = NULL; // empty list
-    // printf("How many numbers do you want to insert: ");
-    // int n;
-    // scanf("%d", &n);
-    // for (int i = 0; i < n; i++)
-    // {
-    //     printf("Enter the number: ");
-    //     int x;
-    //     scanf("%d", &x);
-    //     Insert(x);
-    //     Print();
-    // }
+    head = NULL;
 
     Insert(2, 1); // List: 2
     Insert(3, 2); // List: 2 3
     Insert(4, 1); // List: 4 2 3
     Insert(5, 2); // List: 4 5 2 3
     Print();
-    int n;
-    printf("Enter a position: ");
-    scanf("%d", &n);
-    Delete(n);
+    Reverse();
     Print();
     return 0;
 }
