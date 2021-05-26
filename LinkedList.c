@@ -8,7 +8,7 @@ struct Node
 };
 struct Node *head; // global variable, can be accessed anywhere
 
-void Insert(int data, int n)
+void Insert(int data, int n) // Insert a node at n-th position
 {
     struct Node *temp = (struct Node *)malloc(sizeof(struct Node));
     temp->data = data;
@@ -28,7 +28,7 @@ void Insert(int data, int n)
     prevNode->next = temp;
 };
 
-void Print()
+void Print() //Print all elements in the list
 {
     struct Node *temp = head;
     printf("List is: ");
@@ -39,6 +39,28 @@ void Print()
     }
     printf("\n");
 };
+
+void Delete(int n) // Delete note at the n-th position
+{
+    struct Node *temp = head;
+    if (n == 1)
+    {
+        head = head->next;
+    }
+    else
+    {
+        struct Node *prevNode = (struct Node *)malloc(sizeof(struct Node));
+        prevNode = head;
+        for (int i = 0; i < n - 2; i++)
+        {
+            prevNode = prevNode->next;
+        }
+        temp = prevNode->next;
+        prevNode->next = prevNode->next->next;
+    }
+    free(temp);
+}
+
 int main()
 {
     head = NULL; // empty list
@@ -55,12 +77,14 @@ int main()
     // }
 
     Insert(2, 1); // List: 2
-    Print();
     Insert(3, 2); // List: 2 3
-    Print();
     Insert(4, 1); // List: 4 2 3
-    Print();
     Insert(5, 2); // List: 4 5 2 3
+    Print();
+    int n;
+    printf("Enter a position: ");
+    scanf("%d", &n);
+    Delete(n);
     Print();
     return 0;
 }
