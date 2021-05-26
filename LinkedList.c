@@ -76,6 +76,38 @@ void Reverse()
     head = prevNode;
 }
 
+void PrintRecursive(struct Node *p)
+{
+    if (p == NULL)
+    {
+        printf("\n");
+        return;
+    }
+    printf("%d ", p->data);
+    PrintRecursive(p->next);
+}
+
+void PrintReverseRecursive(struct Node *p)
+{
+    // DIY
+    // if (p == head)
+    //     return;
+    // struct Node *preTail = head;
+    // while (preTail->next != p)
+    // {
+    //     preTail = preTail->next;
+    // }
+    // printf("%d ", preTail->data);
+    // ReversePrint(preTail);
+
+    if (p == NULL)
+    {
+        return;
+    }
+    PrintReverseRecursive(p->next);
+    printf("%d ", p->data);
+}
+
 int main()
 {
     head = NULL;
@@ -85,7 +117,10 @@ int main()
     Insert(4, 1); // List: 4 2 3
     Insert(5, 2); // List: 4 5 2 3
     Print();
-    Reverse();
+    printf("Print list using recursive function: ");
+    PrintRecursive(head);
+    printf("Print reverse list using recursive function: ");
+    PrintReverseRecursive(head);
     Print();
     return 0;
 }
