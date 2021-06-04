@@ -61,7 +61,7 @@ void Delete(int n) // Delete note at the n-th position
     free(temp);
 }
 
-void Reverse()
+void ReverseIterative()
 {
     struct Node *prevNode = NULL;
     struct Node *currentNode = head;
@@ -108,6 +108,19 @@ void PrintReverseRecursive(struct Node *p)
     printf("%d ", p->data);
 }
 
+void ReverseRecursive(struct Node *p)
+{
+    if (p->next == NULL)
+    {
+        head = p;
+        return;
+    }
+    ReverseRecursive(p->next);
+    p->next->next = p;
+    p->next = NULL;
+    return;
+}
+
 int main()
 {
     head = NULL;
@@ -117,10 +130,11 @@ int main()
     Insert(4, 1); // List: 4 2 3
     Insert(5, 2); // List: 4 5 2 3
     Print();
-    printf("Print list using recursive function: ");
-    PrintRecursive(head);
-    printf("Print reverse list using recursive function: ");
-    PrintReverseRecursive(head);
+    ReverseRecursive(head);
+    // printf("Print list using recursive function: ");
+    // PrintRecursive(head);
+    // printf("Print reverse list using recursive function: ");
+    // PrintReverseRecursive(head);
     Print();
     return 0;
 }
