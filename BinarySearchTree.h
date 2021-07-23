@@ -219,3 +219,55 @@ void LevelOrder(struct BstNode *root)
         Dequeue(&front, &rear);
     }
 }
+
+struct BstNode *Delete(struct BstNode *root, int data)
+{
+    if (root == NULL)
+    {
+        return root;
+    }
+    else if (data < root->data)
+    {
+        root->left = Delete(root->left, data);
+    }
+    else if (data > root->data)
+    {
+        root->right = Delete(root->right, data);
+    }
+    else
+    {
+        // Case 1: No child
+        if (root->left == NULL && root->right == NULL)
+        {
+            free(root);
+            root = NULL;
+        }
+
+        // Case 2: One child
+        else if (root->left == NULL)
+        {
+            struct BstNode *temp = root;
+            root = root->right;
+            free(temp);
+        }
+        else if (root->right == NULL)
+        {
+            struct BstNode *temp = root;
+            root = root->left;
+            free(temp);
+        }
+
+        else
+        {
+            struct BstNode *temp = root->right;
+            while (temp->left != NULL)
+            {
+                temp = temp->left;
+            }
+            root->data = temp->data;
+            root->right = Delete(root->right, temp->data);
+        }
+
+        return root;
+    }
+}
